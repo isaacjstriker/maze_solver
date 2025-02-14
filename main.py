@@ -1,11 +1,25 @@
-from window import Window
+from graphics import Window
+from maze import Maze
+
 
 def main():
-    window = Window(800, 600)
-    window.redraw()
-    window.wait_for_close()
-    print("Program closed")
-    return 0
+    num_rows = 12
+    num_cols = 16
+    margin = 50
+    screen_x = 800
+    screen_y = 600
+    cell_size_x = (screen_x - 2 * margin) / num_cols
+    cell_size_y = (screen_y - 2 * margin) / num_rows
+    win = Window(screen_x, screen_y)
 
-if __name__ == "__main__":
-    main()
+    maze = Maze(margin, margin, num_rows, num_cols, cell_size_x, cell_size_y, win)
+
+    if maze.solve():
+        print("Maze solved!")
+    else:
+        print("Maze has no solution!")
+
+    win.wait_for_close()
+
+
+main()
